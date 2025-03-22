@@ -1,9 +1,10 @@
 import Link from "next/link";
 import React from "react";
+import Testimonials from "./Testimonials";
 
 const CTA = () => {
     return (
-        <section className="py-20 bg-[#CEEAF7] text-black text-center">
+        <><Testimonials /><section className="py-20 bg-[#CEEAF7] text-black text-center">
             <div className="max-w-5xl mx-auto px-6">
                 <h2 className="text-4xl font-bold sm:text-5xl">
                     Start Building Your Dream Website Today
@@ -20,7 +21,7 @@ const CTA = () => {
                     </Link>
                 </div>
             </div>
-        </section>
+        </section></>
     );
 };
 

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import Showcase from "./Showcase";
 
 const testimonials = [
     {
@@ -34,7 +35,7 @@ const testimonials = [
 
 const Testimonials = () => {
     return (
-        <section className="py-20 bg-gray-50">
+        <><Showcase /><section className="py-20 bg-gray-50">
             <div className="max-w-7xl mx-auto px-6">
                 <h2 className="text-4xl font-bold text-gray-900 text-center">
                     What Our Clients Say
@@ -73,7 +74,7 @@ const Testimonials = () => {
                     ))}
                 </div>
             </div>
-        </section>
+        </section></>
     );
 };
 

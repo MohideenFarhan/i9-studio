@@ -1,8 +1,9 @@
 import React from 'react'
+import Features from './Features'
 
 const Howitworks = () => {
     return (
-        <section className="py-20 bg-gray-50">
+        <><Features /><section className="py-20 bg-gray-50">
             <div className="max-w-7xl mx-auto px-6 text-center">
                 <h2 className="text-4xl font-bold text-gray-900 sm:text-5xl">How It Works</h2>
                 <p className="mt-6 text-lg text-gray-600">
@@ -25,7 +26,7 @@ const Howitworks = () => {
                     ))}
                 </div>
             </div>
-        </section>
+        </section></>
 
     )
 }

@@ -1,8 +1,8 @@
 import Link from "next/link";
-
+import Navbar from "./Navbar";
 export default function Hero() {
     return (
-        <section className="relative bg-gradient-to-r from-[#3E6259] via-[#A3D5F7] to-[#246ca2] px-6 pt-20 text-center lg:px-8">
+        <><Navbar /><section className="relative bg-gradient-to-r from-[#3E6259] via-[#A3D5F7] to-[#246ca2] px-6 pt-20 text-center lg:px-8">
             <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
                 <h1 className="text-5xl font-semibold text-gray-900 sm:text-7xl">
                     Build Stunning Websites
@@ -19,6 +19,6 @@ export default function Hero() {
                     </Link>
                 </div>
             </div>
-        </section>
+        </section></>
     );
 }
