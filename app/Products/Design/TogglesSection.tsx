@@ -1,17 +1,27 @@
-"use client"
+"use client";
+import { useEffect, useState } from "react";
+import Image from "next/image";
 import HowitWorks from "./HowitWorks";
 
 export default function FigmaToWebsite() {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) return null; // Prevent hydration error
+
     return (
         <>
             <section className="flex flex-col md:flex-row items-center justify-between px-6 sm:px-12 md:px-20 lg:px-32 py-10 sm:py-16 bg-gray-100 dark:bg-gray-900 w-full">
                 {/* Left Content */}
-                <div className="w-full  xl:mx-12 md:w-1/2 text-center md:text-left">
+                <div className="w-full xl:mx-12 md:w-1/2 text-center md:text-left">
                     <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-gray-900 dark:text-white">
                         Bring Your Figma Designs to Life
                     </h2>
                     <p className="mt-4 sm:mt-6 text-left text-gray-700 text-sm sm:text-lg md:text-xl dark:text-gray-300">
-                        Design, customize, and launch your website directly from Figma. Add animations, AI, and business features for a seamless web-building experience. Design your vision before exporting to Studio where you can add animations, code, business solutions, AI, and more to bring your ideas to life.
+                        Design, customize, and launch your website directly from Figma. Add animations, AI, and business features for a seamless web-building experience.
                     </p>
                     <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center md:justify-start">
                         <button className="px-5 sm:px-4 py-2 sm:py-3 bg-white text-black font-semibold flex items-center gap-2 rounded-full shadow-md hover:scale-105 transition">
@@ -31,9 +41,11 @@ export default function FigmaToWebsite() {
 
                 {/* Right Image */}
                 <div className="w-full mx-4 md:w-1/2 flex justify-center mt-8 md:mt-0">
-                    <img
+                    <Image
                         src="/Figma.jpg"
                         alt="Figma to Website"
+                        width={800}
+                        height={500}
                         className="w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl h-auto object-contain"
                     />
                 </div>

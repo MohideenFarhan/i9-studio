@@ -1,8 +1,16 @@
-"use client"
-import React from 'react';
+"use client";
+import React, { useEffect, useState } from 'react';
 import Footer from './FooterSection';
 
 const HowitWorks = () => {
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    if (!isMounted) return null; // Prevent hydration error
+
     return (
         <>
             <section className="bg-gradient-to-r from-gray-200 via-amber-50 to-blue-200 shadow-lg py-12 sm:py-14 md:py-16">

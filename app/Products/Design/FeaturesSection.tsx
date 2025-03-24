@@ -1,14 +1,20 @@
-"use client"
-import React from 'react';
-import CTASection from './CTASection';
+"use client";
+import React, { useEffect, useState } from "react";
+import CTASection from "./CTASection";
 
 const FeaturesSection = () => {
+    const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
+
     return (
         <>
             <section className="max-w-[5000px] w-full px-6 md:px-12 xl:px-48 py-16 flex flex-col xl:flex-row items-center xl:items-left gap-16 xl:gap-32">
                 {/* Left: Text Content */}
                 <div className="xl:w-1/2 mx-auto w-full text-center xl:text-left flex flex-col justify-left">
-                    <h2 className="text-5xl md:text-7xl xl:text-8xl font-bold text-gray-900 leading-tight">
+                    <h2 className="text-5xl md:text-7xl xl:text-7xl font-bold text-gray-900 leading-tight">
                         Enhance Your Vision,<br /> Transform Your Experience
                     </h2>
                     <p className="mt-6 text-lg text-left md:text-2xl text-gray-700 leading-relaxed max-w-[800px] mx-auto xl:mx-0">
@@ -25,9 +31,11 @@ const FeaturesSection = () => {
 
                 {/* Right: Video Section */}
                 <div className="xl:w-1/2 w-full flex justify-center xl:justify-end">
-                    <video className="w-full max-w-[800px] md:max-w-[1000px] xl:max-w-[1200px] rounded-xl shadow-2xl" autoPlay loop muted playsInline>
-                        <source src="/video1.mp4" type="video/mp4" />
-                    </video>
+                    {isClient && (
+                        <video className="w-full max-w-[800px] md:max-w-[1000px] xl:max-w-[1200px] rounded-xl shadow-2xl" autoPlay loop muted playsInline>
+                            <source src="/video1.mp4" type="video/mp4" />
+                        </video>
+                    )}
                 </div>
             </section>
 

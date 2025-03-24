@@ -1,20 +1,27 @@
-"use client"
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import ShowcaseSection from "./ShowcaseSection";
 
 const CTASection = () => {
+    const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
+
+    if (!isClient) return null; // Avoid mismatched SSR content
+
     return (
         <>
             <div className="w-full flex flex-col xl:flex-row items-start justify-start gap-6 md:gap-10 xl:gap-24 px-4 sm:px-6 md:px-12 lg:px-24 xl:px-32 py-12 bg-gradient-to-r from-cyan-300 via-red-300 to-red-400 shadow-lg">
-
                 {/* Heading Section */}
                 <h2 className="w-full xl:w-1/2 xl:mx-12 text-2xl sm:text-3xl md:text-5xl font-bold text-black leading-tight text-center xl:text-left">
                     Effortless Animations <br className="hidden md:block" /> and Effects
                 </h2>
 
                 {/* Content Section */}
-                <div className="w-full xl:w-1/2  xl:text-left max-w-2xl">
-                    <p className="text-base sm:text-lg md:text-xl  text-gray-700 leading-relaxed">
+                <div className="w-full xl:w-1/2 xl:text-left max-w-2xl">
+                    <p className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed">
                         Engage users with interactive motion. Add life to your site with smooth
                         transitions, eye-catching movements, and immersive storytelling—featuring
                         hover effects, looping animations, mouse parallax, and more. Plus, unlock

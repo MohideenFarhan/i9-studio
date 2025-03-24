@@ -1,10 +1,19 @@
 'use client';
+import { useEffect, useState } from "react";
 import FeaturesSection from "./FeaturesSection";
 
 export default function HeroSection() {
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    if (!isMounted) return null; // Prevents hydration mismatch
+
     return (
         <>
-            <section className="relative flex flex-col justify-center items-center min-h-screen w-full min-w-full overflow-hidden text-white bg-gradient-to-r from-amber-600 via-blue-300 to-amber-800 px-0">
+            <section className="relative flex flex-col justify-center items-center min-h-screen w-full overflow-hidden text-white bg-gradient-to-r from-amber-600 via-blue-300 to-amber-800 px-0">
                 <div className="w-full max-w-7xl text-center px-4">
                     <h1 className="mt-20 text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold leading-tight">
                         Elevate Your Brand,<br /> Design Beyond Limits
