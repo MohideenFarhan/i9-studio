@@ -39,6 +39,7 @@ export default function Navbar() {
     }, []);
 
     const handleNavigation = (href: string) => {
+        setMobileMenuOpen(false); // Close menu after navigation
         setTimeout(() => router.push(href), 100);
     };
 
@@ -149,20 +150,18 @@ export default function Navbar() {
                                                 </svg>
                                             </button>
 
-                                            {/* Mobile Dropdown */}
-                                            {productMenuOpen && (
-                                                <div className="ml-4 mt-2 space-y-2">
-                                                    {productDropdown.map((subItem) => (
-                                                        <button
-                                                            key={subItem.name}
-                                                            onClick={() => handleNavigation(subItem.href)}
-                                                            className="block text-lg text-gray-700"
-                                                        >
-                                                            {subItem.name}
-                                                        </button>
-                                                    ))}
-                                                </div>
-                                            )}
+                                            {/* Updated Dropdown: Clicking "Design" directly navigates */}
+                                            <div className="ml-4 mt-2 space-y-2">
+                                                {productDropdown.map((subItem) => (
+                                                    <button
+                                                        key={subItem.name}
+                                                        onClick={() => handleNavigation(subItem.href)}
+                                                        className="block text-lg text-gray-700"
+                                                    >
+                                                        {subItem.name}
+                                                    </button>
+                                                ))}
+                                            </div>
                                         </div>
                                     ) : (
                                         <button onClick={() => handleNavigation(item.href)} className="block text-lg font-semibold text-gray-900">
