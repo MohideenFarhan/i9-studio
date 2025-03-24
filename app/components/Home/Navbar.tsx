@@ -163,6 +163,7 @@ export default function Navbar() {
                                                             key={subItem.name}
                                                             onClick={() => {
                                                                 setProductMenuOpen(false);
+                                                                setMobileMenuOpen(false);
                                                                 router.push(subItem.href);
                                                             }}
                                                             className="block text-lg text-gray-700"
