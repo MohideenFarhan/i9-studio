@@ -19,15 +19,12 @@ const productDropdown = [
 
 export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [isClient, setIsClient] = useState(false);
     const [productMenuOpen, setProductMenuOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const { data: session } = useSession();
     const router = useRouter();
 
     useEffect(() => {
-        setIsClient(true);
-
         const handleClickOutside = (event: MouseEvent) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
                 setProductMenuOpen(false);
@@ -37,6 +34,12 @@ export default function Navbar() {
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
+
+    const handleNavigation = (href: string) => {
+        setMobileMenuOpen(false);
+        setProductMenuOpen(false);
+        router.push(href);
+    };
 
     return (
         <header className="w-full fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
@@ -86,10 +89,7 @@ export default function Navbar() {
                                         {productDropdown.map((subItem) => (
                                             <button
                                                 key={subItem.name}
-                                                onClick={() => {
-                                                    setProductMenuOpen(false);
-                                                    router.push(subItem.href);
-                                                }}
+                                                onClick={() => handleNavigation(subItem.href)}
                                                 className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
                                             >
                                                 {subItem.name}
@@ -125,81 +125,73 @@ export default function Navbar() {
             </nav>
 
             {/* Mobile Menu */}
-            {isClient && (
-                <Dialog as="div" className="relative z-50 lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
-                    <div className="fixed inset-0 bg-black bg-opacity-50" />
+            <Dialog as="div" className="relative z-50 lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
+                <div className="fixed inset-0 bg-black bg-opacity-50" />
 
-                    <div className="fixed inset-y-0 right-0 w-full max-w-sm bg-white p-6 shadow-lg transform transition-transform duration-300 ease-in-out">
-                        <button onClick={() => setMobileMenuOpen(false)} className="absolute top-4 right-4 p-2 text-gray-700">
-                            <XMarkIcon className="h-6 w-6" />
-                        </button>
-                        <div className="mt-6 space-y-4">
-                            {navigation.map((item) => (
-                                <div key={item.name}>
-                                    {item.dropdown ? (
-                                        <div className="relative">
-                                            <button
-                                                onClick={() => setProductMenuOpen(!productMenuOpen)}
-                                                className="block text-lg font-light text-gray-900 w-full text-left"
-                                            >
-                                                {item.name}
-                                                <svg
-                                                    className={`w-4 h-4 ml-1 inline transition-transform ${productMenuOpen ? 'rotate-180' : ''}`}
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    strokeWidth="2"
-                                                    viewBox="0 0 24 24"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"></path>
-                                                </svg>
-                                            </button>
+                <div className="fixed inset-y-0 right-0 w-full max-w-sm bg-white p-6 shadow-lg transform transition-transform duration-300 ease-in-out">
+                    <button onClick={() => setMobileMenuOpen(false)} className="absolute top-4 right-4 p-2 text-gray-700">
+                        <XMarkIcon className="h-6 w-6" />
+                    </button>
 
-                                            {/* Mobile Dropdown */}
-                                            {productMenuOpen && (
-                                                <div className="ml-4 mt-2 space-y-2">
-                                                    {productDropdown.map((subItem) => (
-                                                        <button
-                                                            key={subItem.name}
-                                                            onClick={() => {
-                                                                setProductMenuOpen(false);
-                                                                setMobileMenuOpen(false);
-                                                                router.push(subItem.href);
-                                                            }}
-                                                            className="block text-lg text-gray-700"
-                                                        >
-                                                            {subItem.name}
-                                                        </button>
-                                                    ))}
-                                                </div>
-                                            )}
-                                        </div>
-                                    ) : (
+                    <div className="mt-6 space-y-4">
+                        {navigation.map((item) => (
+                            <div key={item.name}>
+                                {item.dropdown ? (
+                                    <div className="relative">
                                         <button
-                                            onClick={() => {
-                                                setMobileMenuOpen(false);
-                                                router.push(item.href);
-                                            }}
-                                            className="block text-lg font-semibold text-gray-900"
+                                            onClick={() => setProductMenuOpen(!productMenuOpen)}
+                                            className="block text-lg font-light text-gray-900 w-full text-left"
                                         >
                                             {item.name}
+                                            <svg
+                                                className={`w-4 h-4 ml-1 inline transition-transform ${productMenuOpen ? 'rotate-180' : ''}`}
+                                                fill="none"
+                                                stroke="currentColor"
+                                                strokeWidth="2"
+                                                viewBox="0 0 24 24"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"></path>
+                                            </svg>
                                         </button>
-                                    )}
-                                </div>
-                            ))}
-                            {session ? (
-                                <button onClick={() => signOut()} className="block text-lg font-semibold text-gray-900">
-                                    Log out
-                                </button>
-                            ) : (
-                                <button onClick={() => signIn('google')} className="block text-lg font-semibold text-gray-900">
-                                    Log in
-                                </button>
-                            )}
-                        </div>
+
+                                        {/* Mobile Dropdown */}
+                                        {productMenuOpen && (
+                                            <div className="ml-4 mt-2 space-y-2">
+                                                {productDropdown.map((subItem) => (
+                                                    <button
+                                                        key={subItem.name}
+                                                        onClick={() => handleNavigation(subItem.href)}
+                                                        className="block text-lg text-gray-700"
+                                                    >
+                                                        {subItem.name}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                ) : (
+                                    <button
+                                        onClick={() => handleNavigation(item.href)}
+                                        className="block text-lg font-semibold text-gray-900"
+                                    >
+                                        {item.name}
+                                    </button>
+                                )}
+                            </div>
+                        ))}
+                        {session ? (
+                            <button onClick={() => signOut()} className="block text-lg font-semibold text-gray-900">
+                                Log out
+                            </button>
+                        ) : (
+                            <button onClick={() => signIn('google')} className="block text-lg font-semibold text-gray-900">
+                                Log in
+                            </button>
+                        )}
                     </div>
-                </Dialog>
-            )}
+                </div>
+            </Dialog>
         </header>
     );
 }
