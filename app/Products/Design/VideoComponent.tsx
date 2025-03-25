@@ -9,7 +9,6 @@ const VideoComponent = () => {
             muted
             playsInline
             preload="none"
-            poster="/video-placeholder.jpg"
         >
             <source src="/video1.mp4" type="video/mp4" />
             Your browser does not support the video tag.
