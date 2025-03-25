@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import dynamic from "next/dynamic";
+// import dynamic from "next/dynamic";
 import CTASection from "./CTASection";
 import VideoComponent from "../Design/VideoComponent";
 
