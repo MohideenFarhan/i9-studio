@@ -13,10 +13,10 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  webpack: (config) => {
-    config.devtool = "eval-source-map"; // 🔥 Fixes source map issue in development
-    return config;
-  },
+  // webpack: (config) => {
+  //   config.devtool = "eval-source-map"; // 🔥 Fixes source map issue in development
+  //   return config;
+  // },
 };
 
 export default nextConfig;
