@@ -14,7 +14,7 @@ const CTA = () => {
                 </p>
                 <div className="mt-8 flex justify-center">
                     <Link
-                        href="#"
+                        href="/Editor"
                         className="px-6 py-3 text-lg font-medium bg-white text-black rounded-lg shadow-lg hover:bg-gray-100 transition"
                     >
                         Get Started

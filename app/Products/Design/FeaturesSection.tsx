@@ -18,7 +18,7 @@ const FeaturesSection = () => {
                         With just a few clicks, arrange and fine-tune your content effortlessly.
                         Resize, swap, and align elements with precision.
                     </p>
-                    <button className="mt-8 w-64 md:w-80 flex items-center gap-3 px-6 md:px-8 py-3 md:py-4 bg-indigo-600 text-white text-lg md:text-2xl font-medium rounded-lg shadow-lg hover:bg-indigo-700 transition">
+                    <button className="mt-8 w-64  md:w-lg flex items-center gap-3 px-6 md:px-8 py-3 md:py-4 bg-indigo-600 text-white text-lg md:text-2xl font-medium rounded-lg shadow-lg hover:bg-indigo-700 transition">
                         Discover More
                         <svg className="w-5 md:w-6 h-5 md:h-6" fill="currentColor" viewBox="0 0 13 10">
                             <path d="M10.684 4.389 7.82 1.292l.633-.585 3.795 4.102-3.785 4.406-.653-.562 2.922-3.402h-9.3L1.43 9.884H.569V4.39h10.115Z" />

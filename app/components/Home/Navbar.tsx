@@ -8,20 +8,21 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
 const navigation = [
     { name: 'Product', href: '/Products', dropdown: true },
-    { name: 'Features', href: '/features' },
+    { name: 'Features', href: '/Features', dropdown: true },
     { name: 'Marketplace', href: '/marketplace' },
     { name: 'Company', href: '/company' },
 ];
 
-const productDropdown = [
-    { name: 'Design', href: '/Products/Design' },
-];
+const productDropdown = [{ name: 'Design', href: '/Products/Design' }];
+const featuresDropdown = [{ name: 'AI Features', href: '/Features/AIFeatures' }];
 
 export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [isClient, setIsClient] = useState(false);
     const [productMenuOpen, setProductMenuOpen] = useState(false);
-    const dropdownRef = useRef<HTMLDivElement>(null);
+    const [featuresMenuOpen, setFeaturesMenuOpen] = useState(false);
+    const dropdownRefProduct = useRef<HTMLDivElement>(null);
+    const dropdownRefFeatures = useRef<HTMLDivElement>(null);
     const { data: session } = useSession();
     const router = useRouter();
 
@@ -29,8 +30,15 @@ export default function Navbar() {
         setIsClient(true);
 
         const handleClickOutside = (event: MouseEvent) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+            if (
+                dropdownRefProduct.current && !dropdownRefProduct.current.contains(event.target as Node)
+            ) {
                 setProductMenuOpen(false);
+            }
+            if (
+                dropdownRefFeatures.current && !dropdownRefFeatures.current.contains(event.target as Node)
+            ) {
+                setFeaturesMenuOpen(false);
             }
         };
 
@@ -39,21 +47,19 @@ export default function Navbar() {
     }, []);
 
     const handleNavigation = (href: string) => {
-        setMobileMenuOpen(false); // Close menu after navigation
+        setMobileMenuOpen(false);
         setTimeout(() => router.push(href), 100);
     };
 
     return (
         <header className="w-full fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
             <nav className="flex items-center justify-between px-4 sm:px-6 lg:px-10 py-4" aria-label="Global">
-                {/* Logo */}
                 <div className="flex lg:flex-1">
                     <button onClick={() => handleNavigation('/')} className="text-3xl font-bold text-gray-900">
                         i9 Studios
                     </button>
                 </div>
 
-                {/* Mobile Menu Button */}
                 <div className="flex lg:hidden">
                     <button onClick={() => setMobileMenuOpen(true)} className="p-2 text-gray-700">
                         <Bars3Icon className="h-6 w-6" />
@@ -64,14 +70,26 @@ export default function Navbar() {
                 <div className="hidden lg:flex lg:gap-x-8">
                     {navigation.map((item) =>
                         item.dropdown ? (
-                            <div key={item.name} className="relative" ref={dropdownRef}>
+                            <div
+                                key={item.name}
+                                className="relative"
+                                ref={item.name === 'Product' ? dropdownRefProduct : dropdownRefFeatures}
+                            >
                                 <button
-                                    onClick={() => setProductMenuOpen(!productMenuOpen)}
+                                    onClick={() =>
+                                        item.name === 'Product'
+                                            ? setProductMenuOpen(!productMenuOpen)
+                                            : setFeaturesMenuOpen(!featuresMenuOpen)
+                                    }
                                     className="text-2xl font-light text-gray-900 flex items-center gap-1"
                                 >
                                     {item.name}
                                     <svg
-                                        className={`w-4 h-4 ml-1 text-gray-600 transition-transform ${productMenuOpen ? 'rotate-180' : ''}`}
+                                        className={`w-4 h-4 ml-1 text-gray-600 transition-transform ${(item.name === 'Product' && productMenuOpen) ||
+                                            (item.name === 'Features' && featuresMenuOpen)
+                                            ? 'rotate-180'
+                                            : ''
+                                            }`}
                                         fill="none"
                                         stroke="currentColor"
                                         strokeWidth="2"
@@ -83,17 +101,19 @@ export default function Navbar() {
                                 </button>
 
                                 {/* Dropdown Menu */}
-                                {productMenuOpen && (
+                                {(item.name === 'Product' ? productMenuOpen : featuresMenuOpen) && (
                                     <div className="absolute left-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg">
-                                        {productDropdown.map((subItem) => (
-                                            <button
-                                                key={subItem.name}
-                                                onClick={() => handleNavigation(subItem.href)}
-                                                className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-                                            >
-                                                {subItem.name}
-                                            </button>
-                                        ))}
+                                        {(item.name === 'Product' ? productDropdown : featuresDropdown).map(
+                                            (subItem) => (
+                                                <button
+                                                    key={subItem.name}
+                                                    onClick={() => handleNavigation(subItem.href)}
+                                                    className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
+                                                >
+                                                    {subItem.name}
+                                                </button>
+                                            )
+                                        )}
                                     </div>
                                 )}
                             </div>
@@ -105,7 +125,6 @@ export default function Navbar() {
                     )}
                 </div>
 
-                {/* Login/Logout Button */}
                 <div className="hidden lg:flex lg:flex-1 lg:justify-end">
                     {session ? (
                         <button onClick={() => signOut()} className="text-2xl font-light text-gray-900">
@@ -134,12 +153,20 @@ export default function Navbar() {
                                     {item.dropdown ? (
                                         <div className="relative">
                                             <button
-                                                onClick={() => setProductMenuOpen(!productMenuOpen)}
+                                                onClick={() =>
+                                                    item.name === 'Product'
+                                                        ? setProductMenuOpen(!productMenuOpen)
+                                                        : setFeaturesMenuOpen(!featuresMenuOpen)
+                                                }
                                                 className="block text-lg font-light text-gray-900 w-full text-left"
                                             >
                                                 {item.name}
                                                 <svg
-                                                    className={`w-4 h-4 ml-1 inline transition-transform ${productMenuOpen ? 'rotate-180' : ''}`}
+                                                    className={`w-4 h-4 ml-1 inline transition-transform ${(item.name === 'Product' && productMenuOpen) ||
+                                                        (item.name === 'Features' && featuresMenuOpen)
+                                                        ? 'rotate-180'
+                                                        : ''
+                                                        }`}
                                                     fill="none"
                                                     stroke="currentColor"
                                                     strokeWidth="2"
@@ -150,17 +177,18 @@ export default function Navbar() {
                                                 </svg>
                                             </button>
 
-                                            {/* Updated Dropdown: Clicking "Design" directly navigates */}
                                             <div className="ml-4 mt-2 space-y-2">
-                                                {productDropdown.map((subItem) => (
-                                                    <button
-                                                        key={subItem.name}
-                                                        onClick={() => handleNavigation(subItem.href)}
-                                                        className="block text-lg text-gray-700"
-                                                    >
-                                                        {subItem.name}
-                                                    </button>
-                                                ))}
+                                                {(item.name === 'Product' ? productDropdown : featuresDropdown).map(
+                                                    (subItem) => (
+                                                        <button
+                                                            key={subItem.name}
+                                                            onClick={() => handleNavigation(subItem.href)}
+                                                            className="block text-lg text-gray-700"
+                                                        >
+                                                            {subItem.name}
+                                                        </button>
+                                                    )
+                                                )}
                                             </div>
                                         </div>
                                     ) : (
@@ -170,15 +198,6 @@ export default function Navbar() {
                                     )}
                                 </div>
                             ))}
-                            {session ? (
-                                <button onClick={() => signOut()} className="block text-lg font-semibold text-gray-900">
-                                    Log out
-                                </button>
-                            ) : (
-                                <button onClick={() => signIn('google')} className="block text-lg font-semibold text-gray-900">
-                                    Log in
-                                </button>
-                            )}
                         </div>
                     </div>
                 </Dialog>

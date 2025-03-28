@@ -56,7 +56,8 @@ export default function Features() {
                             src="https://tailwindcss.com/plus-assets/img/component-images/dark-project-app-screenshot.png"
                             width={3000}
                             height={1442}
-                            loading="lazy" // Only loads when needed
+                            priority
+                            // Only loads when needed
                             className="w-full max-w-none rounded-xl ring-1 shadow-xl ring-gray-400/10 sm:w-[57rem] md:-ml-4 lg:-ml-0 xl:w-[90rem]"
                         />
 

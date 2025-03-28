@@ -30,7 +30,7 @@ const Showcase = () => {
                                     alt={template.title}
                                     width={500}
                                     height={300}
-                                    loading="lazy"
+                                    // loading="lazy"
                                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                                     className="object-cover w-full h-full"
                                     priority={index === 0} // Load first image faster

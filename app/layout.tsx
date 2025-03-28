@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import AuthProvider from "../app/components/SessionProvider";  // ✅ Use relative path
-// ✅ Use alias if configured
-import Navbar from './components/Home/Navbar';
-
-
+import AuthProvider from "../app/components/SessionProvider";
+import NavbarWrapper from "../app/components/Home/NavbarWrapper"; // Import the wrapper
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,11 +26,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AuthProvider>
-          <Navbar />  {/* Navbar should be inside AuthProvider */}
+          <NavbarWrapper /> {/* ✅ Navbar logic is now inside a client component */}
           {children}
         </AuthProvider>
       </body>
