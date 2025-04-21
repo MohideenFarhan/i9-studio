@@ -9,7 +9,7 @@ const AIFeatures = () => {
         setIsMounted(true);
     }, []);
 
-    if (!isMounted) return null; // Prevents hydration mismatch
+    if (!isMounted) return null; 
 
     return (
         <>

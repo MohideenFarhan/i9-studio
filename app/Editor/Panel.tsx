@@ -1,52 +1,23 @@
-"use client"; // ✅ Ensure this is a client component
+// Panel.tsx
+"use client";
 
-import React from "react";
-
-const PropertiesPanel = ({ selectedElement, updateElement }) => {
-    if (!selectedElement)
-        return <p className="text-gray-600 text-center">Select an element to edit</p>;
-
+const Panel = () => {
     return (
-        <div className="p-4 bg-white shadow-md rounded-lg border">
-            <h3 className="text-md font-semibold mb-2">Edit {selectedElement.type}</h3>
+        <div className="w-[300px] bg-gray-50 border-l p-4 overflow-y-auto min-h-screen space-y-6">
+            <div>
+                <h3 className="font-semibold mb-2">Styles</h3>
+                <div id="styles" className="bg-white border rounded p-2 min-h-[150px]" />
+            </div>
 
-            {selectedElement.type === "text" && (
-                <div className="mb-3">
-                    <label className="block text-sm font-medium text-gray-700">Text:</label>
-                    <input
-                        type="text"
-                        className="border p-2 w-full rounded mt-1"
-                        value={selectedElement.text || ""}
-                        onChange={(e) =>
-                            updateElement({ ...selectedElement, text: e.target.value })
-                        }
-                    />
-                </div>
-            )}
+            <div>
+                <h3 className="font-semibold mb-2">Traits</h3>
+                <div id="traits" className="bg-white border rounded p-2 min-h-[150px]" />
+            </div>
 
-            {/* Future updates for images/buttons */}
-            {selectedElement.type === "button" && (
-                <div className="mb-3">
-                    <label className="block text-sm font-medium text-gray-700">Button Text:</label>
-                    <input
-                        type="text"
-                        className="border p-2 w-full rounded mt-1"
-                        value={selectedElement.text || "Click Me"}
-                        onChange={(e) =>
-                            updateElement({ ...selectedElement, text: e.target.value })
-                        }
-                    />
-                </div>
-            )}
-        </div>
-    );
-};
-
-const Panel = ({ selectedElement, updateElement }) => {
-    return (
-        <div className="w-1/8 min-w-[250px] bg-gray-100 p-4 border-l shadow-md">
-            <h2 className="text-lg font-bold mb-4">Properties</h2>
-            <PropertiesPanel selectedElement={selectedElement} updateElement={updateElement} />
+            <div>
+                <h3 className="font-semibold mb-2">Layers</h3>
+                <div id="layers" className="bg-white border rounded p-2 min-h-[150px]" />
+            </div>
         </div>
     );
 };

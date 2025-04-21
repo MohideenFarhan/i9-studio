@@ -28,7 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AuthProvider>
-          <NavbarWrapper /> {/* ✅ Navbar logic is now inside a client component */}
+          <NavbarWrapper />
           {children}
         </AuthProvider>
       </body>
